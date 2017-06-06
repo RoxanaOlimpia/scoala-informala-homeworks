@@ -1,1 +1,5 @@
 # scoala-informala-homeworks
+
+
+
+SALUT!
