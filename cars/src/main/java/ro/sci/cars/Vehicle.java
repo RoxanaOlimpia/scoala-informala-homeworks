@@ -20,6 +20,7 @@ public interface Vehicle {
     /**
      * Drive a vehicle for a specified number of km.
      * @param km the number of km to drive.
+     *           .....
      */
     void drive(double km);
 
