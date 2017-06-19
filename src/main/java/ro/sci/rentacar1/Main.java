@@ -42,7 +42,7 @@ public class Main {
         bmw.setModel("m5");
 
         volkswagen.setMake("Volkswagen");
-        volkswagen.setColor("grey");
+        volkswagen.setColor("green");
         volkswagen.setModel("Passat");
 
         bmw2.setColor("purple");
