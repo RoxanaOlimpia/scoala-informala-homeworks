@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Roxana on 6/17/2017.
  */
-public class CostumerRepo implements CostumerRepoInterface {
+public class CostumerRepo<Costumer> implements RepoInterface<Costumer> {
 
     public List<Costumer> costumerRepoList = new ArrayList<Costumer>();
 
@@ -23,21 +23,21 @@ public class CostumerRepo implements CostumerRepoInterface {
     }
 
     //methods
-    public void addCostumer(Costumer costumer) {
+    public void add(Costumer costumer) {
         costumerRepoList.add(costumer);
 
     }
 
-    public List<Costumer> findCostumer() {
+    public List<Costumer> find() {
         return costumerRepoList;
 
     }
 
-    public void updateCostumer(Costumer costumer) {
+    public void update(Costumer costumer) {
         getCarRepoList().set(costumerRepoList.indexOf(costumerRepoList), costumer);
     }
 
-    public void deleteCostumer(Costumer costumer) {
+    public void delete(Costumer costumer) {
         costumerRepoList.remove(costumer);
 
     }

@@ -1,34 +1,43 @@
 package ro.sci.rentacar1.domain.calendar;
 
+
+import org.joda.time.DateTime;
+
 /**
  * Created by Roxana on 6/17/2017.
  */
-public class Calendar {
-    private PickUpTime pickUpTime;
-    private ReturnTime returnTime;
+public class Calendar  {
 
-    //constructor
-    public Calendar(PickUpTime pickUpTime, ReturnTime returnTime) {
-        this.pickUpTime = pickUpTime;
-        this.returnTime = returnTime;
+        DateTime pickUpDate;
+        DateTime returnDate;
+
+
+    //constructors
+    public Calendar(DateTime pickUpDate, DateTime returnDate) {
+        this.pickUpDate = pickUpDate;
+        this.returnDate = returnDate;
     }
+
+    public Calendar() {
+    }
+
 
     //getters and setters
 
 
-    public PickUpTime getPickUpTime() {
-        return pickUpTime;
+    public DateTime getPickUpDate() {
+        return pickUpDate;
     }
 
-    public void setPickUpTime(PickUpTime pickUpTime) {
-        this.pickUpTime = pickUpTime;
+    public void setPickUpDate(DateTime pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
-    public ReturnTime getReturnTime() {
-        return returnTime;
+    public DateTime getReturnDate() {
+        return returnDate;
     }
 
-    public void setReturnTime(ReturnTime returnTime) {
-        this.returnTime = returnTime;
+    public void setReturnDate(DateTime returnDate) {
+        this.returnDate = returnDate;
     }
 }

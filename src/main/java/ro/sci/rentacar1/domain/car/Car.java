@@ -12,6 +12,7 @@ public class Car {
     private boolean gps;
     private boolean automaticGearbox;
     private double fuelConsumption;
+    private PriceCategory priceCategory;
 
     //constructors
     public Car(String make, String model) {
@@ -19,13 +20,14 @@ public class Car {
         this.model = model;
     }
 
-    public Car(String make, String model, FuelType fuelType, String color, int numberOfSeats, boolean gps) {
+    public Car(String make, String model, FuelType fuelType, String color, int numberOfSeats, boolean gps, PriceCategory priceCategory) {
         this.make = make;
         this.model = model;
         this.fuelType = fuelType;
         this.color = color;
         this.numberOfSeats = numberOfSeats;
         this.gps = gps;
+        this.priceCategory = priceCategory;
     }
 
     public Car (){
@@ -92,4 +94,8 @@ public class Car {
     public void setFuelConsumption(double fuelConsumption) {
         this.fuelConsumption = fuelConsumption;
     }
+
+    public PriceCategory getPriceCategory() {return priceCategory;}
+
+    public void setPriceCategory(PriceCategory priceCategory) {this.priceCategory = priceCategory;}
 }

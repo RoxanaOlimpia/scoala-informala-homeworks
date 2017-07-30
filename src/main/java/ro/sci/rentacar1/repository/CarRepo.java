@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * Created by Roxana on 6/17/2017.
  */
-public class CarRepo implements CarRepoInterface {
+public class CarRepo <Car> implements RepoInterface<Car> {
 
     public List<Car> carRepoList = new ArrayList<Car>();
 
-    //constructor
+    //Car REPOLIST constructors:
     public CarRepo(List<Car> carRepoList) {
         this.carRepoList = carRepoList;
     }
@@ -20,30 +20,32 @@ public class CarRepo implements CarRepoInterface {
     public CarRepo() {
     }
 
-    //getter
+    //Car LIST Getter:
     public List<Car> getCarRepoList() {
         return carRepoList;
     }
 
+    //Methods:
 
-    //methods
-    public void addCar(Car car) {
+    @Override
+    public void add(Car car) {
         carRepoList.add(car);
 
     }
 
-    public List<Car>findCar() {
+    @Override
+    public List<Car> find() {
         return carRepoList;
-
     }
 
-    public void updateCar(Car car) {
+    @Override
+    public void update(Car car) {
         carRepoList.set(carRepoList.indexOf(carRepoList), car);
-
     }
 
-    public void deleteCar(Car car) {
+    @Override
+    public void delete(Car car) {
         carRepoList.remove(car);
-
     }
+
 }

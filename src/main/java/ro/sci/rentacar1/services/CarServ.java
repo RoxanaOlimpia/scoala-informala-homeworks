@@ -1,27 +1,26 @@
 package ro.sci.rentacar1.services;
 
-import ro.sci.rentacar1.domain.car.Car;
-
 import java.util.ArrayList;
 import java.util.List;
 import ro.sci.rentacar1.repository.CarRepo;
+import ro.sci.rentacar1.domain.car.Car;
 
 /**
  * Created by Roxana on 6/17/2017.
  */
-public class CarServ implements CarServInterface{
+public class CarServ implements CarServInterface<Car>{
 
-    private CarRepo carRepoList;
-    public CarServ (CarRepo carRepoList){
+    private CarRepo<Car> carRepoList;
+    public CarServ (CarRepo<Car> carRepoList){
         this.carRepoList = carRepoList;
     }
 
 
     public List<Car> findCarsByColor(String color) {
         List<Car>foundCarsByColor = new ArrayList<Car>();
-        for (Car cars: carRepoList.getCarRepoList()){
-            if(cars.getColor().equals(color)){
-                foundCarsByColor.add(cars);
+        for (Car car: carRepoList.getCarRepoList()){
+            if(car.getColor().equals(color)){
+                foundCarsByColor.add(car);
             }
         }
         return foundCarsByColor;

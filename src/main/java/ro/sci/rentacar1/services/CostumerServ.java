@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * Created by Roxana on 6/17/2017.
  */
-public class CostumerServ implements CostumerServInterface {
+public class CostumerServ implements CostumerServInterface<Costumer> {
 
-    private CostumerRepo costumerRepoList;
+    private CostumerRepo<Costumer> costumerRepoList;
     public CostumerServ(CostumerRepo CostumerRepoList){this.costumerRepoList = costumerRepoList;}
 
     public List<Costumer> findCostumersBySurname(String surname) {
@@ -24,7 +24,7 @@ public class CostumerServ implements CostumerServInterface {
         return foundCostumersBySurname;
     }
 
-    public List<Costumer> findCostumersByPhone(long phone) {
+    public List<Costumer> findCostumersByPhone(String phone) {
         List<Costumer> foundCostumersByPhone = new ArrayList<Costumer>();
         for (Costumer costumers : costumerRepoList.getCostumerRepoList()) {
             if(costumers.getPhone()== phone){
@@ -54,7 +54,7 @@ public class CostumerServ implements CostumerServInterface {
         return foundCostumersByTown;
     }
 
-    public List<Costumer> findCostumersBySurnameNameAndPhone(String surname, String name, long phone) {
+    public List<Costumer> findCostumersBySurnameNameAndPhone(String surname, String name, String phone) {
         List<Costumer>foundCostumersBySurnameNameAndPhone = new ArrayList<Costumer>();
         for(Costumer costumers: costumerRepoList.getCostumerRepoList()){
             if(costumers.getSurname().equals(surname)&& costumers.getName().equals(name)&& costumers.getPhone()== phone);{

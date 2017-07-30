@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Roxana on 6/17/2017.
  */
-public interface CarServInterface {
+public interface CarServInterface<Car> {
 
     //Finds cars by color in the list
     List<Car> findCarsByColor(String color);

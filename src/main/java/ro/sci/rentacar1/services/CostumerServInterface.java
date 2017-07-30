@@ -7,12 +7,12 @@ import java.util.List;
 /**
  * Created by Roxana on 6/17/2017.
  */
-public interface CostumerServInterface {
+public interface CostumerServInterface<Costumer> {
     //Finds costumers by surname in the list
     List<Costumer> findCostumersBySurname(String surname);
 
     //Finds costumers by phone number in the list
-    List<Costumer> findCostumersByPhone(long phone);
+    List<Costumer> findCostumersByPhone(String phone);
 
     //Finds costumers by email address in the list
     List<Costumer> findCostumersByEmail(String email);
@@ -21,7 +21,7 @@ public interface CostumerServInterface {
     List<Costumer> findCostumerByTown(String town);
 
     //Finds costumers by surname, name and phone number in the list
-    List<Costumer> findCostumersBySurnameNameAndPhone(String surname, String name, long phone);
+    List<Costumer> findCostumersBySurnameNameAndPhone(String surname, String name, String phone);
 
 
 }

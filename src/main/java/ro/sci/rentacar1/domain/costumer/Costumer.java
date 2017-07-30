@@ -6,7 +6,7 @@ package ro.sci.rentacar1.domain.costumer;
 public class Costumer {
     private String name;
     private String surname;
-    private long phone;
+    private String phone;
     private String email;
     private Address address;
 
@@ -33,11 +33,11 @@ public class Costumer {
         this.surname = surname;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
