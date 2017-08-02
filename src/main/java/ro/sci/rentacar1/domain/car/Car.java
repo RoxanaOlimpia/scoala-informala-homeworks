@@ -13,6 +13,8 @@ public class Car {
     private boolean automaticGearbox;
     private double fuelConsumption;
     private PriceCategory priceCategory;
+    private CarState carState;
+
 
     //constructors
     public Car(String make, String model) {
@@ -98,4 +100,18 @@ public class Car {
     public PriceCategory getPriceCategory() {return priceCategory;}
 
     public void setPriceCategory(PriceCategory priceCategory) {this.priceCategory = priceCategory;}
+
+    public CarState getCarState(CarState carState) {
+        return carState;
+    }
+
+    public boolean getCarAvailability(Car car){
+        if (carState == CarState.AVAILABLE){
+            System.out.println("The car is available for the selected period");
+            return true;
+        }else{
+            System.out.println("The car is NOT available for the selected period");
+            return false;
+        }
+    }
 }

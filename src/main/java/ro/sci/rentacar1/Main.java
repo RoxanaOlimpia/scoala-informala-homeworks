@@ -1,5 +1,7 @@
 package ro.sci.rentacar1;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import org.joda.time.DateTime;
 import ro.sci.rentacar1.domain.car.Car;
 import ro.sci.rentacar1.domain.price.ComputePrice;
@@ -7,11 +9,8 @@ import ro.sci.rentacar1.repository.CarRepo;
 import ro.sci.rentacar1.services.CarServ;
 import ro.sci.rentacar1.domain.calendar.Calendar;
 
-import java.text.SimpleDateFormat;
-import java.time.Month;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static ro.sci.rentacar1.domain.car.FuelType.HYBRID;
 import static ro.sci.rentacar1.domain.car.PriceCategory.ECONOMY;
@@ -22,8 +21,12 @@ import static ro.sci.rentacar1.domain.car.PriceCategory.HIGHCLASS;
  * Created by Roxana on 6/17/2017.
  */
 public class Main {
+
+    public static Logger logger =Logger.getLogger(Main.class.getName());
+
     public static void main (String[] args){
         System.out.println("Opening Rent a Car application");
+
 
 
         //Creating objects of type Car with parameters
@@ -89,26 +92,24 @@ public class Main {
 
         //Calculating price for cars
 
-        Calendar calendar1 = new Calendar();
-        calendar1.setPickUpDate(new DateTime(2017,05,12,00,00));
-        calendar1.setReturnDate(new DateTime (2017,05, 28, 00,00));
+        Calendar calendar1 = new Calendar(new DateTime(2017, 05, 12, 00, 00),
+                new DateTime(2017,05, 28, 00, 00));
+
 
         ComputePrice computePrice = new ComputePrice();
         computePrice.setCalendar(calendar1);
         computePrice.computePrice(volvo);
 
 
-        Calendar calendar2 = new Calendar();
-        calendar2.setPickUpDate(new DateTime(2017, 04, 12, 00, 00));
-        calendar2.setReturnDate(new DateTime(2017, 04, 12, 00,00));
-
-        computePrice.setCalendar(calendar2);
-        computePrice.computePrice(volvo);
-
-        computePrice.setCalendar(calendar2);
-        computePrice.computePrice(bmw);
+        Calendar calendar2 = new Calendar(new DateTime(2017, 04, 12, 00, 00),
+                new DateTime(2017, 04, 12, 00,00) );
 
 
+          computePrice.setCalendar(calendar2);
+          computePrice.computePrice(volvo);
+
+          computePrice.setCalendar(calendar2);
+          computePrice.computePrice(bmw);
     }
 
 
