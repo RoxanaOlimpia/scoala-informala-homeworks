@@ -1,10 +1,8 @@
 package ro.sci.rentacar1.domain;
 
-import org.joda.time.DateTime;
-import ro.sci.rentacar1.domain.calendar.Calendar;
 import ro.sci.rentacar1.domain.car.Car;
-import ro.sci.rentacar1.domain.costumer.Costumer;
-import ro.sci.rentacar1.domain.price.ComputePrice;
+import ro.sci.rentacar1.domain.customer.Customer;
+
 
 /**
  * Created by Roxana on 8/2/2017.
@@ -12,31 +10,32 @@ import ro.sci.rentacar1.domain.price.ComputePrice;
 public class Transaction {
     private int id;
     private Car car;
-    private Costumer costumer;
-    private int numberOfDays;
+    private Customer customer;
+    private Calendar calendar;
+    private int rentalDays;
     private int price;
+    private int payment;
     private boolean status;
 
 
-    ComputePrice computePrice = new ComputePrice();
-    Calendar calendar = new Calendar(new DateTime(), new DateTime() );
+//CONSTRUCTOR with parameters
 
-    public Transaction(int id, Car car, Costumer costumer, int price) {
+    public Transaction(int id, Car car, Customer customer, Calendar calendar, int payment) {
         this.id = id;
         this.car = car;
-        this.costumer = costumer;
-        this.price = price;
+        this.customer = customer;
+        this.calendar = calendar;
+        this.payment = payment;
+        this.rentalDays = calendar.getNoOfDays();
+        this.price = car.computePrice(car, calendar);
+        this.status = getStatus();
     }
 
-    public boolean gettingTransactionStatus(int payment) {
-        if (payment == price) {
-            status = true;
-            System.out.println("Transaction id: " + getId() + "declined");
-        } else {
-            status = false;
-            System.out.println("Transaction id: " + getId() + "approved");
-        }return status;
-    }
+//GETTERS and SETTERS
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public Car getCar() {
         return car;
@@ -46,16 +45,38 @@ public class Transaction {
         this.car = car;
     }
 
-    public Costumer getCostumer() {
-        return costumer;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCostumer(Costumer costumer) {
-        this.costumer = costumer;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public int getId() {
-        return id;
+    public int getPayment() {return payment;}
+
+    public void setPayment(int payment) {this.payment = payment;}
+
+    public int getRentalDays() {return rentalDays;}
+
+    public Calendar getCalendar() {return calendar;}
+
+    public void setCalendar(Calendar calendar) {this.calendar = calendar;}
+
+    public int getPrice() {return price;}
+
+
+//METHOD to get the STATUS of a transaction when the payment is done
+
+    public boolean getStatus() {
+        if (payment == price) {
+            status = true;
+            System.out.println("Transaction id: " + getId() + " approved");
+        } else {
+            status = false;
+            System.out.println("Transaction id: " + getId() + " declined");
+            this.status = status;
+        }return status;
     }
 
 }

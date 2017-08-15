@@ -1,15 +1,25 @@
 package ro.sci.rentacar1;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.Level;
 import org.joda.time.DateTime;
+import ro.sci.rentacar1.IO.Convertor;
+import ro.sci.rentacar1.IO.EntityReader;
+import ro.sci.rentacar1.IO.InvalidEntityException;
+import ro.sci.rentacar1.IO.carIO.CarConvertor;
+import ro.sci.rentacar1.IO.carIO.CarWriter;
+import ro.sci.rentacar1.IO.customerIO.CustomerConvertor;
+import ro.sci.rentacar1.IO.customerIO.CustomerWriter;
+import ro.sci.rentacar1.domain.Transaction;
 import ro.sci.rentacar1.domain.car.Car;
-import ro.sci.rentacar1.domain.price.ComputePrice;
-import ro.sci.rentacar1.repository.CarRepo;
-import ro.sci.rentacar1.services.CarServ;
-import ro.sci.rentacar1.domain.calendar.Calendar;
+import ro.sci.rentacar1.domain.customer.Address;
+import ro.sci.rentacar1.domain.customer.Customer;
 
-import java.util.Date;
+import ro.sci.rentacar1.repository.CarRepo;
+import ro.sci.rentacar1.repository.CustomerRepo;
+import ro.sci.rentacar1.services.CarServ;
+import ro.sci.rentacar1.domain.Calendar;
+
+import java.io.File;
 import java.util.List;
 
 import static ro.sci.rentacar1.domain.car.FuelType.HYBRID;
@@ -24,27 +34,59 @@ public class Main {
 
     public static Logger logger =Logger.getLogger(Main.class.getName());
 
-    public static void main (String[] args){
+    public static void main (String[] args) throws InvalidEntityException {
         System.out.println("Opening Rent a Car application");
-
 
 
         //Creating objects of type Car with parameters
         Car volvo = new Car();
         Car bmw = new Car();
         Car volkswagen = new Car();
-        Car bmw2 = new Car("BMW","300",HYBRID,"red",4,true, HIGHCLASS);
+        Car bmw2 = new Car("BMW", "300", HYBRID, "red", 4, true, HIGHCLASS);
 
-        //Creating a Repository for objects of type Car
+        Car renault = new Car();
+        renault.setMake("renault");
+
+//Creating objects of type customer
+        Customer popescu = new Customer("Mihai","Popescu");
+
+        Customer cristea = new Customer("Alexandra", "Cristea", "0765845268",
+                                        "alexandracrs@yahoo.com",new Address("Zalau",
+                                        "Salaj","Avram Iancu","22"));
+
+        Customer suciu = new Customer("George", "Suciu");
+
+//Creating a Repository for objects of type Car
         CarRepo<Car> carRepo = new CarRepo<Car>();
 
-        //Adding the created objects to the carRepo
+//Creating a repository for the objects of type Customer
+        CustomerRepo<Customer> customerRepo = new CustomerRepo<Customer>();
+
+//Adding the created objects of type Car to the carRepo
         carRepo.add(volvo);
-        carRepo.add (bmw);
-        carRepo.add (volkswagen);
+        carRepo.add(bmw);
+        carRepo.add(volkswagen);
         carRepo.add(bmw2);
 
-        //Setting paramentres for the instantiated cars
+//Adding customers to the customerRepo
+        customerRepo.add(popescu);
+        customerRepo.add(cristea);
+        customerRepo.add(suciu);
+
+        popescu.setPhone("0748754125");
+        popescu.setAddress(new Address("Cluj", "Cluj-Napoca", "21 Decembrie", "41"));
+
+
+        System.out.println("___________________________________________________________");
+        System.out.println("The customers from the list are: ");
+        for (Customer customer : customerRepo.getCustomerRepoList()) {
+            System.out.println(customer.getName() + " " + customer.getSurname());
+        }
+
+        System.out.println("___________________________________________________________");
+
+
+        //Setting parameters for the instantiated cars
         volvo.setMake("Volvo");
         volvo.setModel("v3");
         volvo.setColor("red");
@@ -66,51 +108,98 @@ public class Main {
 
         //Displaying a list of all cars from the carRepo
         System.out.println("The cars from the list are: ");
-            for (Car car: carRepo.getCarRepoList()){
-                System.out.println(car.getMake()+" " + car.getModel());
-            }
+        for (Car car : carRepo.getCarRepoList()) {
+            System.out.println(car.getMake() + " " + car.getModel());
+        }
 
         System.out.println("___________________________________________________________");
 
         //Displaying all red cars from the list
         CarServ searchByColor = new CarServ(carRepo);
-        List<Car>findCarsByColor = searchByColor.findCarsByColor("red");
+        List<Car> findCarsByColor = searchByColor.findCarsByColor("red");
         System.out.println("The red cars are: ");
-            for (Car car: findCarsByColor){
-                System.out.println(car.getMake()+ " " + car.getModel());
-            }
+        for (Car car : findCarsByColor) {
+            System.out.println(car.getMake() + " " + car.getModel());
+        }
 
         carRepo.delete(bmw2);
 
         System.out.println("___________________________________________________________");
         System.out.println("The cars from the list are: ");
-        for (Car car: carRepo.getCarRepoList()){
-            System.out.println(car.getMake()+" " + car.getModel());
+        for (Car car : carRepo.getCarRepoList()) {
+            System.out.println(car.getMake() + " " + car.getModel());
         }
 
         System.out.println("___________________________________________________________");
 
         //Calculating price for cars
 
-        Calendar calendar1 = new Calendar(new DateTime(2017, 05, 12, 00, 00),
-                new DateTime(2017,05, 28, 00, 00));
-
-
-        ComputePrice computePrice = new ComputePrice();
-        computePrice.setCalendar(calendar1);
-        computePrice.computePrice(volvo);
+        Calendar calendar1 = new Calendar(new DateTime(2017, 03, 12, 00, 00),
+                new DateTime(2017, 03, 15, 00, 00));
 
 
         Calendar calendar2 = new Calendar(new DateTime(2017, 04, 12, 00, 00),
-                new DateTime(2017, 04, 12, 00,00) );
+                new DateTime(2017, 04, 15, 00, 00));
+
+        calendar1.getNoOfDays();
 
 
-          computePrice.setCalendar(calendar2);
-          computePrice.computePrice(volvo);
+//Creating a transaction
+        Transaction transaction1 = new Transaction(111,volvo,popescu,calendar2, 600);
 
-          computePrice.setCalendar(calendar2);
-          computePrice.computePrice(bmw);
+        System.out.println("nr de zile inchiriate: "+ transaction1.getRentalDays());
+
+        System.out.println(transaction1.getStatus());
+
+
+//Adding objects of type Car to carRepo from a text document
+
+        File InCar = new File("InCar.txt");
+        EntityReader entityReader = new EntityReader();
+        List<String> carLines = entityReader.readLines(InCar);
+        Convertor<Car> carConvertor = new CarConvertor();
+
+        for (String line : carLines) {
+            carRepo.add(carConvertor.convert(line));
+
+        }
+
+//Printing carRepoList
+        System.out.println("The cars from the list are: ");
+        for (Car car : carRepo.getCarRepoList()) {
+            System.out.println(car.getMake() + " " + car.getModel());
+        }
+
+//Printing the carRepoList to a text document
+        File outCar = new File("OutCar.txt");
+        CarWriter carWriter = new CarWriter();
+        carWriter.writeObj(carRepo.getCarRepoList(), outCar);
+
+
+
+
+
+        File InCustomer = new File("InCustomer.txt");
+        EntityReader entityReaderC = new EntityReader();
+        List<String> customerLines = entityReaderC.readLines(InCustomer);
+        Convertor<Customer> customerConvertor = new CustomerConvertor();
+
+        for (String line : customerLines) {
+            customerRepo.add(customerConvertor.convert(line));
+
+        }
+
+        System.out.println("The customers from the list are: ");
+        for (Customer customer : customerRepo.getCustomerRepoList()) {
+            System.out.println(customer.getName() + " " + customer.getSurname());
+        }
+
+
+        File outCustomer = new File("OutCustomer.txt");
+        CustomerWriter customerWriter = new CustomerWriter();
+        customerWriter.writeObj(customerRepo.getCustomerRepoList(),outCustomer);
+
+
+
     }
-
-
 }

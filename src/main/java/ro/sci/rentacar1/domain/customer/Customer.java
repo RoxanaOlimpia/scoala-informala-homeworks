@@ -1,22 +1,38 @@
-package ro.sci.rentacar1.domain.costumer;
+package ro.sci.rentacar1.domain.customer;
+
 
 /**
  * Created by Roxana on 6/17/2017.
  */
-public class Costumer {
+public class Customer {
     private String name;
     private String surname;
     private String phone;
     private String email;
     private Address address;
 
-    //constructor
-    public Costumer(){
+//CONSTRUCTOR without parameters
+
+    public Customer() {
+    }
+
+//CONSTRUCTORS with parameters
+
+    public Customer(String name, String surname){
         this.name = name;
         this.surname = surname;
     }
 
-    //getters and setters
+    public Customer(String name, String surname, String phone, String email, Address address) {
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+//GETTERS and SETTERS
+
     public String getName() {
         return name;
     }
@@ -53,7 +69,18 @@ public class Costumer {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(Address address) {this.address = address;}
+
+
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                '}';
     }
 }

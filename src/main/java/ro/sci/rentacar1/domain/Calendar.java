@@ -1,5 +1,4 @@
-package ro.sci.rentacar1.domain.calendar;
-
+package ro.sci.rentacar1.domain;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -12,8 +11,8 @@ public class Calendar  {
         DateTime pickUpDate;
         DateTime returnDate;
 
+//CONSTRUCTOR implementing EXCEPTION for invalid dates
 
-    //constructors
     public Calendar(DateTime pickUpDate, DateTime returnDate) {
         if (pickUpDate.isAfter(returnDate))
             throw new IllegalArgumentException("The pick up date must be before the return date!");
@@ -22,10 +21,7 @@ public class Calendar  {
     }
 
 
-
-
-    //getters and setters
-
+//GETTERS and SETTERS
 
     public DateTime getPickUpDate() {
         return pickUpDate;
@@ -43,6 +39,9 @@ public class Calendar  {
         this.returnDate = returnDate;
     }
 
+
+ //METHOD to CALCULATE THE NO. OF DAYS BETWEEN pick-up date and return date
+
     public int getNoOfDays(){
 
         Days noOfDays  = Days.daysBetween(getPickUpDate(), getReturnDate());
@@ -55,4 +54,6 @@ public class Calendar  {
         }
         return noOfDaysInt;
     }
+
+
 }
