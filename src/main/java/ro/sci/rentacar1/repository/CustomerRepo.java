@@ -1,7 +1,5 @@
 package ro.sci.rentacar1.repository;
 
-import ro.sci.rentacar1.domain.customer.Customer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,29 +10,29 @@ public class CustomerRepo<Customer> implements RepoInterface<Customer> {
 
     public List<Customer> customerRepoList = new ArrayList<Customer>();
 
-    //constructor
+//CONSTRUCTOR without parameters
+    public CustomerRepo() {
+    }
+
+//CONSTRUCTOR with parameters
     public CustomerRepo(List<Customer> customerRepoList) {
         this.customerRepoList = customerRepoList;
     }
 
-    public CustomerRepo() {
-
-    }
-
-    //getter
+//GETTER for the customer list
     public List<Customer> getCustomerRepoList() {
         return customerRepoList;
     }
 
-    //methods
+
+//Implementation of CRUD methods
+
     public void add(Customer customer) {
         customerRepoList.add(customer);
-
     }
 
     public List<Customer> find() {
         return customerRepoList;
-
     }
 
     public void update(Customer customer) {
@@ -46,7 +44,4 @@ public class CustomerRepo<Customer> implements RepoInterface<Customer> {
 
     }
 
-    public List<Customer> getCostumerRepoList() {
-        return customerRepoList;
-    }
 }

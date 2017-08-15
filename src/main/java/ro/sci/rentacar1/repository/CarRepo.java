@@ -1,7 +1,5 @@
 package ro.sci.rentacar1.repository;
 
-import ro.sci.rentacar1.domain.car.Car;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,26 +10,25 @@ public class CarRepo <Car> implements RepoInterface<Car> {
 
     public List<Car> carRepoList = new ArrayList<Car>();
 
-    //Car REPOLIST constructors:
+//CONSTRUCTOR without parameter
+    public CarRepo() {
+    }
+
+//CONSTRUCTOR with parameter
     public CarRepo(List<Car> carRepoList) {
         this.carRepoList = carRepoList;
     }
 
-    public CarRepo() {
-    }
-
-    //Car LIST Getter:
+//GETTER for the car list
     public List<Car> getCarRepoList() {
         return carRepoList;
     }
 
-    //Methods:
+
+//Implementation of CRUD methods
 
     @Override
-    public void add(Car car) {
-        carRepoList.add(car);
-
-    }
+    public void add(Car car) {carRepoList.add(car);}
 
     @Override
     public List<Car> find() {

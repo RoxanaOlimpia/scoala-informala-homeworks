@@ -9,16 +9,17 @@ import java.util.List;
  * Created by Roxana on 6/17/2017.
  */
 public interface RepoInterface <T> {
-    //Adds a new element to the list
+
+//CRUD methods (create, read, update, delete)
+//Definition of a METHOD that ADDS a new element to the list
      void add(T t);
 
-    //Finds elements by different indicators in the list
+//Definition of a METHOD that FINDS elements by different indicators in the list
      List<T> find();
 
-    //Updates the state of an element
+//Definition of a METHOD that UPDATES the state of an element in the list
     void update(T t);
 
-    //Deletes an element
+//Definition of a METHOD that DELETES an element from the list
     void delete(T t);
-
 }

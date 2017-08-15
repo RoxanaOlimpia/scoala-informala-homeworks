@@ -9,19 +9,19 @@ import java.util.List;
  */
 public interface CarServInterface<Car> {
 
-    //Finds cars by color in the list
+//Finds cars by color in the list
     List<Car> findCarsByColor(String color);
 
-    //Finds cars by model in the list
+//Finds cars by model in the list
     List<Car> findCarsByModel(String model);
 
-    //Finds cars by fuel consumption in the list
+//Finds cars by fuel consumption in the list
     List<Car> findCarsByFuelConsumption(double fuelConsumption);
 
-    //Finds cars by GPS in the list
+//Finds cars by GPS in the list
     List<Car> findCarsByGps(boolean gps);
 
-    //Finds cars by model, number of seats and fuel consumption
+//Finds cars by model, number of seats and fuel consumption
     List<Car> findCarsbyModelNumberofSeatsAndFuelConsumption(String model, int numberOfSeats, double fuelConsumption);
 
 }
