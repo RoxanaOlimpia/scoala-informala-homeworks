@@ -1,7 +1,5 @@
 package ro.sci.rentacar1.services;
 
-import ro.sci.rentacar1.domain.car.Car;
-
 import java.util.List;
 
 /**

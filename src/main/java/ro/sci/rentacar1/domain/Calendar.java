@@ -55,5 +55,12 @@ public class Calendar  {
         return noOfDaysInt;
     }
 
-
+//METHOD that CONVERTS to STRING the objects of type Car
+    @Override
+    public String toString() {
+        return "Calendar{" +
+                "pickUpDate=" + pickUpDate +
+                ", returnDate=" + returnDate +
+                '}';
+    }
 }

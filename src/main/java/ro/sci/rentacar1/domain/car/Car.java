@@ -130,12 +130,12 @@ public class Car {
 
 //METHOD to check the AVAILABILITY of a CAR
 
-    public boolean getCarAvailability(Car car){
-        if (carState == CarState.AVAILABLE){
-            System.out.println("The car is available for the selected period");
+    public boolean getCarAvailabilityForPeriod(Car car){
+        if (car.carState == CarState.AVAILABLE){
+            System.out.println("The car "+ car.getMake()+" "+ car.getModel()+" is available for the selected period");
             return true;
         }else{
-            System.out.println("The car is NOT available for the selected period");
+            System.out.println("The car "+ car.getMake()+" "+ car.getModel()+" is NOT available for the selected period");
             return false;
         }
     }

@@ -5,11 +5,4 @@ package ro.sci.rentacar1.domain.car;
  */
 public enum PriceCategory {
     ECONOMY, ECONOMYPLUS, HIGHCLASS;
-
-//METHOD that converts to String the objects of type PriceCategory
-
-    @Override
-    public String toString() {
-        return "PriceCategory{}";
-    }
 }

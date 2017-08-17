@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Roxana on 8/15/2017.
  */
-public class TransactionRepo implements RepoInterface<Transaction> {
+public class TransactionRepo<Transaction> implements RepoInterface<Transaction> {
 
     public List<Transaction> transactionRepoList = new ArrayList<Transaction>();
 

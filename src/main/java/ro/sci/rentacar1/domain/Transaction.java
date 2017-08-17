@@ -1,6 +1,7 @@
 package ro.sci.rentacar1.domain;
 
 import ro.sci.rentacar1.domain.car.Car;
+import ro.sci.rentacar1.domain.car.CarState;
 import ro.sci.rentacar1.domain.customer.Customer;
 
 
@@ -33,9 +34,13 @@ public class Transaction {
 
 //GETTERS and SETTERS
 
-    public int getId() {return id;}
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) {this.id = id;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Car getCar() {
         return car;
@@ -53,30 +58,43 @@ public class Transaction {
         this.customer = customer;
     }
 
-    public int getPayment() {return payment;}
+    public int getPayment() {
+        return payment;
+    }
 
-    public void setPayment(int payment) {this.payment = payment;}
+    public void setPayment(int payment) {
+        this.payment = payment;
+    }
 
-    public int getRentalDays() {return rentalDays;}
+    public int getRentalDays() {
+        return rentalDays;
+    }
 
-    public Calendar getCalendar() {return calendar;}
+    public Calendar getCalendar() {
+        return calendar;
+    }
 
-    public void setCalendar(Calendar calendar) {this.calendar = calendar;}
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
+    }
 
-    public int getPrice() {return price;}
+    public int getPrice() {
+        return price;
+    }
 
 
-//METHOD to get the STATUS of a transaction when the payment is done
+//METHOD to get the STATUS of a transaction when the payment is introduced
 
     public boolean getStatus() {
-        if (payment == price) {
+        if (payment == price && car.getCarAvailabilityForPeriod(car)) {
             status = true;
+            car.setCarState(CarState.BOOKED);
             System.out.println("Transaction id: " + getId() + " approved");
         } else {
             status = false;
             System.out.println("Transaction id: " + getId() + " declined");
-            this.status = status;
-        }return status;
+            throw new IllegalArgumentException("The selected car is not available for the mentioned period or the payment is not correct.");
+        }
+        return status;
     }
-
 }

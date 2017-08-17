@@ -11,17 +11,21 @@ import ro.sci.rentacar1.IO.customerIO.CustomerConvertor;
 import ro.sci.rentacar1.IO.customerIO.CustomerWriter;
 import ro.sci.rentacar1.domain.Transaction;
 import ro.sci.rentacar1.domain.car.Car;
+import ro.sci.rentacar1.domain.car.CarState;
 import ro.sci.rentacar1.domain.customer.Address;
 import ro.sci.rentacar1.domain.customer.Customer;
 
 import ro.sci.rentacar1.repository.CarRepo;
 import ro.sci.rentacar1.repository.CustomerRepo;
+import ro.sci.rentacar1.repository.TransactionRepo;
 import ro.sci.rentacar1.services.CarServ;
 import ro.sci.rentacar1.domain.Calendar;
 
 import java.io.File;
 import java.util.List;
 
+import static ro.sci.rentacar1.domain.car.CarState.AVAILABLE;
+import static ro.sci.rentacar1.domain.car.CarState.BOOKED;
 import static ro.sci.rentacar1.domain.car.FuelType.HYBRID;
 import static ro.sci.rentacar1.domain.car.PriceCategory.ECONOMY;
 import static ro.sci.rentacar1.domain.car.PriceCategory.ECONOMYPLUS;
@@ -144,12 +148,8 @@ public class Main {
         calendar1.getNoOfDays();
 
 
-//Creating a transaction
-        Transaction transaction1 = new Transaction(111,volvo,popescu,calendar2, 600);
 
-        System.out.println("nr de zile inchiriate: "+ transaction1.getRentalDays());
 
-        System.out.println(transaction1.getStatus());
 
 
 //Adding objects of type Car to carRepo from a text document
@@ -200,6 +200,28 @@ public class Main {
         customerWriter.writeObj(customerRepo.getCustomerRepoList(),outCustomer);
 
 
+        System.out.println("___________________________________________________________");
 
+        volvo.setCarState(AVAILABLE);
+
+            Transaction transaction2 = new Transaction(112, volvo, popescu,calendar1,600);
+        //Creating a transaction
+//        Transaction transaction1 = new Transaction(111,volvo,popescu,calendar2, 600);
+//
+//        System.out.println("Rental period: "+ transaction1.getRentalDays()+ " days");
+//
+//
+//
+//
+//        TransactionRepo<Transaction> transactionRepo = new TransactionRepo<Transaction>();
+//
+//
+//        transactionRepo.add(transaction1);
+//
+//        System.out.println("The transactions from the list are: ");
+//        for (Transaction transaction : transactionRepo.getTransactionRepoList()) {
+//            System.out.println(transaction.getId() + " client: " + transaction.getCustomer()+ " car: "+
+//                    transaction.getCar()+" rental days: "+ transaction.getCalendar());
+//        }
     }
 }

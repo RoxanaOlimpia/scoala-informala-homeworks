@@ -5,11 +5,4 @@ package ro.sci.rentacar1.domain.car;
  */
 public enum FuelType {
     DIESEL, PETROL, HYBRID;
-
-//METHOD that converts to String the objects of type FuelType
-
-    @Override
-    public String toString() {
-        return "FuelType{}";
-    }
 }
