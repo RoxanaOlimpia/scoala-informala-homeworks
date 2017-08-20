@@ -1,9 +1,20 @@
 package ro.sci.rentacar1.domain.car;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import ro.sci.rentacar1.domain.Calendar;
+
+import static ro.sci.rentacar1.domain.car.PriceCategory.ECONOMY;
+import static ro.sci.rentacar1.domain.car.PriceCategory.ECONOMYPLUS;
+import static ro.sci.rentacar1.domain.car.PriceCategory.HIGHCLASS;
+
 /**
  * Created by Roxana on 6/17/2017.
  */
 public class Car {
+
+    public static final Logger LOGGER = Logger.getLogger("ComputePrice");
+
     private String make;
     private String model;
     private FuelType fuelType;
@@ -12,27 +23,36 @@ public class Car {
     private boolean gps;
     private boolean automaticGearbox;
     private double fuelConsumption;
+    private PriceCategory priceCategory;
+    private CarState carState;
+    private int price;
 
-    //constructors
+
+//CONSTRUCTOR without parameters
+
+    public Car (){
+    }
+
+//CONSTRUCTORS with parameters
+
     public Car(String make, String model) {
         this.make = make;
         this.model = model;
     }
 
-    public Car(String make, String model, FuelType fuelType, String color, int numberOfSeats, boolean gps) {
+    public Car(String make, String model, FuelType fuelType, String color,
+               int numberOfSeats, boolean gps, PriceCategory priceCategory) {
         this.make = make;
         this.model = model;
         this.fuelType = fuelType;
         this.color = color;
         this.numberOfSeats = numberOfSeats;
         this.gps = gps;
+        this.priceCategory = priceCategory;
     }
 
-    public Car (){
+//GETTERS and SETTERS
 
-    }
-
-    //getters and setters
     public String getMake() {
         return make;
     }
@@ -91,5 +111,72 @@ public class Car {
 
     public void setFuelConsumption(double fuelConsumption) {
         this.fuelConsumption = fuelConsumption;
+    }
+
+    public PriceCategory getPriceCategory() {return priceCategory;}
+
+    public void setPriceCategory(PriceCategory priceCategory) {this.priceCategory = priceCategory;}
+
+    public CarState getCarState(CarState carState) {
+        return carState;
+    }
+
+    public void setCarState(CarState carState) {this.carState = carState;}
+
+    public CarState getCarState() {return carState;}
+
+    public int getPrice() {return price;}
+
+
+//METHOD to check the AVAILABILITY of a CAR
+
+    public boolean getCarAvailabilityForPeriod(Car car){
+        if (car.carState == CarState.AVAILABLE){
+            System.out.println("The car "+ car.getMake()+" "+ car.getModel()+" is available for the selected period");
+            return true;
+        }else{
+            System.out.println("The car "+ car.getMake()+" "+ car.getModel()+" is NOT available for the selected period");
+            return false;
+        }
+    }
+
+//METHOD to compute the PRICE for a car taking into consideration the car's PRICE CATEGORY and the RENTAL PERIOD
+    public int computePrice (Car car, Calendar calendar){
+        if (car.getPriceCategory() == ECONOMY){
+            price = 200 * calendar.getNoOfDays();
+        }
+        else if (car.getPriceCategory() == ECONOMYPLUS){
+            price = 300 * calendar.getNoOfDays();
+        }
+
+        else if (car.getPriceCategory() == HIGHCLASS){
+            price = 500 * calendar.getNoOfDays();
+        }else {
+            throw new IllegalArgumentException ("The price category for the chosen car is not specified in the system");
+        }
+
+//LOGGER to display INFO about the calculated price for a specific car for a certain rental period
+        LOGGER.log(Level.INFO,"The calculated price for the car "+ car.getMake() +" " + car.getModel()+ " " +
+                " for a period of "+ calendar.getNoOfDays() + " days is "+ price);
+
+        return price;
+    }
+
+//METHOD that CONVERTS to STRING the objects of type Car
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", fuelType=" + fuelType +
+                ", color='" + color + '\'' +
+                ", numberOfSeats=" + numberOfSeats +
+                ", gps=" + gps +
+                ", automaticGearbox=" + automaticGearbox +
+                ", fuelConsumption=" + fuelConsumption +
+                ", priceCategory=" + priceCategory +
+                ", carState=" + carState +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package ro.sci.rentacar1.domain.costumer;
+package ro.sci.rentacar1.domain.customer;
 
 /**
  * Created by Roxana on 6/17/2017.
@@ -9,15 +9,23 @@ public class Address {
     private String street;
     private String houseNr;
 
-    //constructors
+//CONSTRUCTOR without parameters
+
     public Address(){
     }
 
-    public Address(String town) {
+//CONSTRUCTORS with parameters
+
+    public Address(String town, String county, String street, String houseNr) {
         this.town = town;
+        this.county = county;
+        this.street = street;
+        this.houseNr = houseNr;
     }
 
-    //setters and getters
+
+//GETTERS and SETTERS
+
     public String getTown() {
         return town;
     }
@@ -48,6 +56,16 @@ public class Address {
 
     public void setHouseNr(String houseNr) {
         this.houseNr = houseNr;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "town='" + town + '\'' +
+                ", county='" + county + '\'' +
+                ", street='" + street + '\'' +
+                ", houseNr='" + houseNr + '\'' +
+                '}';
     }
 }
 
